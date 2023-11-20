@@ -10,23 +10,69 @@
 >
 > All scripts can be read in advance via https://hub.pkgx.sh
 
+## Getting Started
+
+Most ScriptHub scripts require pkgx, so you may as well install ScriptHub
+via [pkgx]:
+
+```sh
+# see https://pkgx.sh for `pkgx` installation instructions
+$ sudo pkgx install scripthub
+```
+
+> https://pkgx.sh
 
 ## Adding your Scripts to [hub.pkgx.sh][ScriptHub]
 
 1. Fork [pkgxdev/scripthub]
-   > 🚨 Forks of forks will not be indexed! 🚨
 2. Add scripts to `./scripts/`
-   * Use any shell or scripting language you like
-   * Scripts do not need to use a [`pkgx` shebang]
-   * Scripts do not have to be made executable *but we recommend it*
-3. **Optional Step** Rewrite the README so there is a `## script-name` section
-   * The paragraph after the `##` will be the scripthub description
-   * A `### Usage` section will be listed to help users use your script
-   * If you don’t provide usage then at some point we will use AI to try to
-     generate it. Better you add it yourself tho right?
-4. Push to your fork
-   > Do not create a pull request, *we index the fork graph!*
-5. Wait a bit and then check https://hub.pkgx.sh
+3. Push to your fork
+4. Wait an hour and then check https://hub.pkgx.sh
+
+> [!TIP]
+> * Use any shell or scripting language you like
+> * Scripts do not need to use a [`pkgx` shebang] *but we recommend it*
+> * Scripts do not have to be made executable *but we recommend it*
+
+> [!NOTE]
+> Do not create a pull request for your scripts against this repo!
+> *We index the fork graph*.
+
+> https://hub.pkgx.sh
+
+### The Shebang
+
+The shebang is where you instruct pkgx on what scriping language you want.
+For example, if you want to write your script in `fish`:
+
+```sh
+#!/usr/bin/env -S pkgx fish
+```
+
+You can also use pkgx `+pkg` syntax to add additional packages to the script’s
+running environment:
+
+```sh
+#!/usr/bin/env -S pkgx +gh +git +gum +bpb bash
+```
+
+pkgx knows what packages to cache (it doesn’t pollute the user system with
+installs) based on the commands you want to run. There’s no figuring out
+pkg names, just type what you would type to run the command.
+
+> https://docs.pkgx.sh/scripts
+
+### Documenting Your Script
+
+Rewrite the README in your fork so there is a `## script-name` section. We
+lowercase the script filename, remove spaces and remove non-alphanumeric
+characters. eg. `script-name` will match `## Script Name!`.
+
+* The paragraph after the `##` will be the scripthub description
+  * Keep the first line short so it isn’t truncated in our index
+* A `### Usage` section will be listed to help users use your script
+* If you don’t provide usage then at some point we will use AI to try to
+  generate it. Better you add it yourself tho right?
 
 ### Debugging Scripts
 
@@ -53,6 +99,7 @@ ScriptHub cli `shx`:
 $ shx your-script-name-without-extension
 ```
 
+> [!NOTE]
 > If someone already took that name then you can still use it via:
 >
 > ```sh
@@ -83,9 +130,11 @@ pkgs.
 sh <(curl https://pkgx.sh) shx your-script-name
 ```
 
-Updates are fetched automatically, there is no versioning at this time.
+> [!NOTE]
+> Updates are fetched automatically, there is no versioning at this time.
 
 
 [pkgxdev/scripthub]: https://github.com/pkgxdev/scripthub
 [`pkgx` shebang]: https://docs.pkgx.sh/scripts
 [ScriptHub]: https://hub.pkgx.sh
+[pkgx]: https://pkgx.sh
